@@ -1,0 +1,2 @@
+image: alicelight/alibuild:latest
+volumes:

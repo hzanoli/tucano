@@ -1,0 +1,27 @@
+steps:
+- name: "gcr.io/cloud-builders/docker"
+  entrypoint: "bash"
+  args: ["-c", "docker login --username=hzanoli --password=${_DOCKER_PASSWORD}"]
+
+- name: "gcr.io/cloud-builders/docker"
+  entrypoint: "bash"
+  args: ["-c", "docker pull hzanoli/root_pythia:latest || exit 0"]
+
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "hzanoli/root_pythia:latest", '--cache-from', 'hzanoli/root_pythia:latest', "."]
+  timeout: 64800s
+
+- name: "gcr.io/cloud-builders/docker"
+  entrypoint: "bash"
+  args: ["-c", "docker login --username=hzanoli --password=${_DOCKER_PASSWORD}"]
+
+timeout: 72000s
+
+options:
+    machineType: 'N1_HIGHCPU_32'
+
+substitutions:
+  _DOCKER_PASSWORD: "my_docker_pass"
+
+images: ["hzanoli/root_pythia:latest"]
+
