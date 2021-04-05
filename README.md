@@ -1,4 +1,4 @@
-![Image of a tucano](https://github.com/hzanoli/tucano/docs/images/tucano.svg)
+![Image of a tucano](https://github.com/hzanoli/tucano/blob/main/docs/images/tucano.svg)
 # tucano
 
 Tucano will help you to set up and run singularity containers in HPC clusters. 
