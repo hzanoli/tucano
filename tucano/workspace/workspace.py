@@ -40,12 +40,17 @@ class Workspace:
 
         yaml_config = yaml.safe_load(yaml_file)
 
+        logging.debug(f"YAML for image: '{yaml_config['image']}")
+
         container = Container(Image(yaml_config['image']))
         logging.info(f'Container: {container}')
 
         volumes = []
         if yaml_config['volumes'] is not None:
-            volumes = [Volume(source, dest) for source, dest in yaml_config['volumes']]
+            logging.debug(f"YAML for volumes: {yaml_config['volumes']}")
+            volumes_config = (x.split(':') for x in yaml_config['volumes'])
+
+            volumes = [Volume(source, dest) for source, dest in volumes_config]
 
         logging.info(f'Volumes: {volumes}')
 

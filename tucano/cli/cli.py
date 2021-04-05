@@ -30,11 +30,12 @@ def init_logs(log_level):
 @click.option('--log_level', '-l', default=default_log_level, type=log_choices,
               help='Level to produce the logs.')
 def init(force, log_level):
+    """Initialize the workspace.yaml file in this folder."""
     init_logs(log_level)
 
     print('Initializing the workspace')
     Workspace.initialize_workspace(force)
-    print('Workspace initialized. Give it a try (:')
+    print("Workspace initialized. You should now build the local image with `tucano build` Give it a try (:")
 
 
 @click.command()
@@ -43,6 +44,8 @@ def init(force, log_level):
 @click.option('--log_level', '-l', default=default_log_level, type=log_choices,
               help='Level to produce the logs.')
 def build(yaml_file, log_level):
+    """Does the necessary setup before running the workspace."""
+
     init_logs(log_level)
     print('Building the workspace')
 
@@ -58,6 +61,7 @@ def build(yaml_file, log_level):
 @click.option('--log_level', '-l', default=default_log_level, type=log_choices,
               help='Level to produce the logs.')
 def shell(yaml_file, log_level):
+    """Opens a shell in the container of the current workspace."""
     init_logs(log_level)
     print('Entering shell the workspace')
 
@@ -76,6 +80,7 @@ def shell(yaml_file, log_level):
               help='Level to produce the logs.')
 @click.argument('command', nargs=-1, type=click.UNPROCESSED)
 def run(yaml_file, log_level, command):
+    """Runs a single command inside the container of the current workspace."""
     init_logs(log_level)
     with open(yaml_file) as f:
         workspace = Workspace.from_yaml(f)
